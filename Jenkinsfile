@@ -16,5 +16,12 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                echo 'Menunggu 1 menit agar aplikasi tetap berjalan...'
+                sleep(time: 60, unit: 'SECONDS')  // Menunggu selama 1 menit
+            }
+        }
     }
 }
