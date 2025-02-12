@@ -16,6 +16,20 @@ pipeline {
                 }
             }
         }
+        stage('Manual Approval') {
+            steps {
+                script {
+                    try {
+                        input(
+                            message: 'Lanjutkan ke tahap Deploy?',
+                            ok: 'Proceed' // Tombol untuk melanjutkan
+                        )
+                    } catch (err) {
+                        error("Deploy dibatalkan oleh pengguna.")
+                    }
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
